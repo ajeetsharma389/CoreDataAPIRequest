@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02281CBB2436227F00EFB583 /* OfflineDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02281CBA2436227F00EFB583 /* OfflineDataModel.swift */; };
 		0252CC782434827D0099A389 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252CC762434827D0099A389 /* Company.swift */; };
 		02959B4A2434859400AE0D5F /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02959B492434859400AE0D5F /* Json4Swift_Base.swift */; };
+		02959B4C2434948800AE0D5F /* OfflineDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02959B4B2434948800AE0D5F /* OfflineDataViewModel.swift */; };
 		02A6539124320EC900CD9E0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6539024320EC900CD9E0D /* AppDelegate.swift */; };
 		02A6539324320EC900CD9E0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6539224320EC900CD9E0D /* SceneDelegate.swift */; };
 		02A6539524320EC900CD9E0D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6539424320EC900CD9E0D /* FirstViewController.swift */; };
@@ -22,8 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02281CBA2436227F00EFB583 /* OfflineDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineDataModel.swift; sourceTree = "<group>"; };
 		0252CC762434827D0099A389 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		02959B492434859400AE0D5F /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
+		02959B4B2434948800AE0D5F /* OfflineDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineDataViewModel.swift; sourceTree = "<group>"; };
 		02A6538D24320EC900CD9E0D /* CoreDataAPIRequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataAPIRequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A6539024320EC900CD9E0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02A6539224320EC900CD9E0D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 			children = (
 				0252CC762434827D0099A389 /* Company.swift */,
 				02959B492434859400AE0D5F /* Json4Swift_Base.swift */,
+				02281CBA2436227F00EFB583 /* OfflineDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 		02A653BE24321FD800CD9E0D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				02959B4B2434948800AE0D5F /* OfflineDataViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -202,8 +208,10 @@
 				0252CC782434827D0099A389 /* Company.swift in Sources */,
 				02A6539D24320ECA00CD9E0D /* CoreDataAPIRequest.xcdatamodeld in Sources */,
 				02A6539524320EC900CD9E0D /* FirstViewController.swift in Sources */,
+				02281CBB2436227F00EFB583 /* OfflineDataModel.swift in Sources */,
 				02A6539124320EC900CD9E0D /* AppDelegate.swift in Sources */,
 				02A6539324320EC900CD9E0D /* SceneDelegate.swift in Sources */,
+				02959B4C2434948800AE0D5F /* OfflineDataViewModel.swift in Sources */,
 				02959B4A2434859400AE0D5F /* Json4Swift_Base.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

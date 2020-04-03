@@ -10,26 +10,41 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    @IBOutlet weak var newsTableView: UITableView!
+    var newsArray = [Json4Swift_Base]()
+    var offlineDataviewmodel : OfflineDataViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsTableView.delegate = self
+        newsTableView.dataSource = self
+        newsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "firstCell")
+        // Initializer Dependency injection
+        offlineDataviewmodel = OfflineDataViewModel(offlinedataModel: OfflineDataModel())
         
-
-        // When app is working offline
-        guard let  jsonFile =  Bundle.main.path(forResource: "stubs", ofType: "json") else { return}
-        
-        //let jsonDataFile = Data(c)
-        guard  let data = try? Data(contentsOf: URL(fileURLWithPath: jsonFile), options: .mappedRead) else {return}
-
-
-                        do {
-                            let people = try JSONDecoder().decode([Json4Swift_Base].self, from: data)
-                            print(people)
-                        } catch let error{
-                            print(error.localizedDescription)
-                        }
+        newsArray = (offlineDataviewmodel?.exposeOfflineDataToView())!
+        for value in 0..<newsArray.count {
+            print(newsArray[value].newsID!)
+        }
 
     }
 
+    
 
 }
 
+extension FirstViewController:UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return newsArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "firstCell", for: indexPath)
+        
+        cell.textLabel?.text = newsArray[indexPath.row].symbol
+        cell.detailTextLabel?.text = newsArray[indexPath.row].title
+        return cell
+    }
+    
+    
+    
+}
