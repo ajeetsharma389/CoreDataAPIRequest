@@ -16,7 +16,7 @@ struct OfflineDataViewModel {
         
     }
     
-     func exposeOfflineDataToView() ->[Json4Swift_Base]{
+     func exposeOfflineDataToView() ->[Datum]{
         return self.offlinedata.exposeItemsToViewModel()
     }
 }

@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		02281CBB2436227F00EFB583 /* OfflineDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02281CBA2436227F00EFB583 /* OfflineDataModel.swift */; };
-		0252CC782434827D0099A389 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252CC762434827D0099A389 /* Company.swift */; };
-		02959B4A2434859400AE0D5F /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02959B492434859400AE0D5F /* Json4Swift_Base.swift */; };
+		02281CBD243B17C600EFB583 /* GameFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = 02281CBC243B17C600EFB583 /* GameFeed.json */; };
+		02281CBF243B470E00EFB583 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02281CBE243B470E00EFB583 /* APIHandler.swift */; };
+		02959B4A2434859400AE0D5F /* GameFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02959B492434859400AE0D5F /* GameFeed.swift */; };
 		02959B4C2434948800AE0D5F /* OfflineDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02959B4B2434948800AE0D5F /* OfflineDataViewModel.swift */; };
 		02A6539124320EC900CD9E0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6539024320EC900CD9E0D /* AppDelegate.swift */; };
 		02A6539324320EC900CD9E0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A6539224320EC900CD9E0D /* SceneDelegate.swift */; };
@@ -25,8 +26,9 @@
 
 /* Begin PBXFileReference section */
 		02281CBA2436227F00EFB583 /* OfflineDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineDataModel.swift; sourceTree = "<group>"; };
-		0252CC762434827D0099A389 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
-		02959B492434859400AE0D5F /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
+		02281CBC243B17C600EFB583 /* GameFeed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameFeed.json; sourceTree = "<group>"; };
+		02281CBE243B470E00EFB583 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
+		02959B492434859400AE0D5F /* GameFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFeed.swift; sourceTree = "<group>"; };
 		02959B4B2434948800AE0D5F /* OfflineDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineDataViewModel.swift; sourceTree = "<group>"; };
 		02A6538D24320EC900CD9E0D /* CoreDataAPIRequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataAPIRequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A6539024320EC900CD9E0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				02A653A024320ECC00CD9E0D /* LaunchScreen.storyboard */,
 				02A653A324320ECC00CD9E0D /* Info.plist */,
 				02A653A92432141300CD9E0D /* stubs.json */,
+				02281CBC243B17C600EFB583 /* GameFeed.json */,
 			);
 			path = CoreDataAPIRequest;
 			sourceTree = "<group>";
@@ -108,8 +111,7 @@
 		02A653BD24321FD000CD9E0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0252CC762434827D0099A389 /* Company.swift */,
-				02959B492434859400AE0D5F /* Json4Swift_Base.swift */,
+				02959B492434859400AE0D5F /* GameFeed.swift */,
 				02281CBA2436227F00EFB583 /* OfflineDataModel.swift */,
 			);
 			path = Models;
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				02A653C02432208600CD9E0D /* NetworkManager.swift */,
+				02281CBE243B470E00EFB583 /* APIHandler.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				02A653A224320ECC00CD9E0D /* LaunchScreen.storyboard in Resources */,
 				02A6539F24320ECC00CD9E0D /* Assets.xcassets in Resources */,
 				02A6539A24320ECA00CD9E0D /* Main.storyboard in Resources */,
+				02281CBD243B17C600EFB583 /* GameFeed.json in Resources */,
 				02A653AA2432141300CD9E0D /* stubs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,14 +209,14 @@
 			files = (
 				02A653C12432208600CD9E0D /* NetworkManager.swift in Sources */,
 				02A6539724320EC900CD9E0D /* SecondViewController.swift in Sources */,
-				0252CC782434827D0099A389 /* Company.swift in Sources */,
 				02A6539D24320ECA00CD9E0D /* CoreDataAPIRequest.xcdatamodeld in Sources */,
 				02A6539524320EC900CD9E0D /* FirstViewController.swift in Sources */,
 				02281CBB2436227F00EFB583 /* OfflineDataModel.swift in Sources */,
 				02A6539124320EC900CD9E0D /* AppDelegate.swift in Sources */,
 				02A6539324320EC900CD9E0D /* SceneDelegate.swift in Sources */,
+				02281CBF243B470E00EFB583 /* APIHandler.swift in Sources */,
 				02959B4C2434948800AE0D5F /* OfflineDataViewModel.swift in Sources */,
-				02959B4A2434859400AE0D5F /* Json4Swift_Base.swift in Sources */,
+				02959B4A2434859400AE0D5F /* GameFeed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

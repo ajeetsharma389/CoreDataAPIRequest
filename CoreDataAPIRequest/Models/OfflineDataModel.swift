@@ -9,22 +9,25 @@
 import Foundation
 class OfflineDataModel {
     
-    private var items = [Json4Swift_Base]()
+    private var items = [Datum]()
     
     init() {
         // When app is working offline
-        guard let  jsonFile =  Bundle.main.path(forResource: "stubs", ofType: "json") else { return}
+        guard let  jsonFile =  Bundle.main.path(forResource: "GameFeed", ofType: "json") else { return}
                
         guard  let data = try? Data(contentsOf: URL(fileURLWithPath: jsonFile), options: .mappedRead) else {return}
         do {
-            self.items = try JSONDecoder().decode([Json4Swift_Base].self, from: data)
-           // print("-----\(items)")
+            let gameFeed = try JSONDecoder().decode(GameFeed.self, from: data)
+            //self.items = try JSONDecoder().decode(GameFeed.self, from: data)
+            self.items = gameFeed.data
+            print(gameFeed.data.description)
+            
             } catch let error{
                     print(error.localizedDescription)
             }
     }
     
-     func exposeItemsToViewModel() ->[Json4Swift_Base]!{
+     func exposeItemsToViewModel() ->[Datum]!{
         return items
     }
 
