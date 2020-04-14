@@ -23,9 +23,7 @@ final class NetworkManager {
             case .success(let data):
                 do {
                     let items = try JSONDecoder().decode(GameFeed.self, from: data)
-                    DispatchQueue.main.async {
                         completion(.success(items))
-                    }
                 }catch{
                     completion(.failure(error))
                 }

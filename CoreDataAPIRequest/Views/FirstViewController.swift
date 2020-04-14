@@ -8,7 +8,21 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
+    
+    // Delegate from ViewModel
+    func reloadTableView(gameFeedObject: GameFeed) {
+        print(Thread.current.threadName)
+            print(Thread.current.threadName)
+            //extract Datum from gameFeedObject
+            self.newsArray = gameFeedObject.data
+            self.newsTableView.reloadData()
+    }
+    
+    
+    
+
+    
 
     @IBOutlet weak var loaderView: UIActivityIndicatorView!
     @IBOutlet weak var OnOffLabel: UILabel!
@@ -16,8 +30,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var toggleButton: UISwitch!
     var newsArray = [Datum]()
     var offlineDataviewmodel : OfflineDataViewModel?
-    var networkManager: NetworkManager!
-    
+    var remoteDataModel: RemoteDataViewModel?
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +38,6 @@ class FirstViewController: UIViewController {
         newsTableView.delegate = self
         newsTableView.dataSource = self
         newsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "firstCell")
-        
-        networkManager = NetworkManager.init(handler: APIHandler.sharedInstance)
         switchToOfflne(toggleButton)
     }
     @IBAction func switchToOfflne(_ sender: UISwitch) {
@@ -36,7 +47,7 @@ class FirstViewController: UIViewController {
             loaderView.isHidden = false
             // OFFLINE MODE
             self.OnOffLabel.text = "OffLine"
-            // Initializer Dependency injection
+            // Initializer Dependency injection. Get data from ViewModel
             offlineDataviewmodel = OfflineDataViewModel(offlinedataModel: OfflineDataModel())
             newsArray = (offlineDataviewmodel?.exposeOfflineDataToView())!
             newsTableView.reloadData()
@@ -47,26 +58,9 @@ class FirstViewController: UIViewController {
             self.OnOffLabel.text = "OnLine"
             self.loaderView.isHidden = false
             newsArray.removeAll()
-              let headers = [
-                  "x-rapidapi-host": "free-nba.p.rapidapi.com",
-                  "x-rapidapi-key": "1IdsadERvTmshoQlSIgJ8ESwyssMp16CArAjsn83B1TPNgFee0"
-              ]
-              let urlString = "https://free-nba.p.rapidapi.com/games?page=0&per_page=14"
-              
-            self.networkManager?.loadGames(urlString: urlString, header: headers, completion: { (result) in
-                switch result {
-                case .success(let returnData):
-                        DispatchQueue.main.async {
-                            //print(returnData)
-                            self.newsArray = returnData.data
-                            self.newsTableView.reloadData()
-                            self.loaderView.isHidden = true
-                        }
-                        break
-                case .failure( _):
-                        break
-                }
-            })
+            //Get data from ViewModel
+            remoteDataModel = RemoteDataViewModel(viewDelegate: self)
+            self.remoteDataModel?.getRemoteData()
         }
     }
     
@@ -86,4 +80,19 @@ extension FirstViewController:UITableViewDelegate, UITableViewDataSource {
     }
     
     
+}
+
+
+extension Thread {
+
+    var threadName: String {
+        if let currentOperationQueue = OperationQueue.current?.name {
+            return "OperationQueue: \(currentOperationQueue)"
+        } else if let underlyingDispatchQueue = OperationQueue.current?.underlyingQueue?.label {
+            return "DispatchQueue: \(underlyingDispatchQueue)"
+        } else {
+            let name = __dispatch_queue_get_label(nil)
+            return String(cString: name, encoding: .utf8) ?? Thread.current.description
+        }
+    }
 }
