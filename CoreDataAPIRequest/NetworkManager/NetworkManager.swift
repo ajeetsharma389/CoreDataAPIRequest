@@ -18,7 +18,8 @@ final class NetworkManager {
     func loadGames(urlString: String,header:  Dictionary <String, String>, completion: @escaping ((Result<GameFeed>) ->Void)) {
         
         let resource = Resource(url: URL(string: urlString)!, httpHeader: header)
-        self.apihandler.load(resource) { (result) in
+        self.apihandler.load(resource) { [weak self] (result) in
+            guard self != nil else {return}
             switch result {
             case .success(let data):
                 do {

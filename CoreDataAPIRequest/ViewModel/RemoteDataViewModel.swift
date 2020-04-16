@@ -23,15 +23,14 @@ final class RemoteDataViewModel {
                             "x-rapidapi-host": hostKey,
                             "x-rapidapi-key": apiKey
                           ]
-    private let urlString = baseUrl
-               
+    // MARK: - Initialization
     init(viewDelegate: reloadWithDataTableViewDelegate) {
         reloadWithDataDelegate = viewDelegate
         networkManager = NetworkManager.init(handler: APIHandler.sharedInstance)
     }
     
    private func collectDataFromRemote(competionHandler: @escaping ((Bool, Result<GameFeed>) ->Void)){
-        self.networkManager.loadGames(urlString: self.urlString, header: self.headers) { (result) in
+        self.networkManager.loadGames(urlString: baseUrl, header: self.headers) { (result) in
             switch result {
             case .success(let returnData):
                 print(Thread.current.threadName)
@@ -48,16 +47,16 @@ final class RemoteDataViewModel {
 extension RemoteDataViewModel:onlineDataDelegate {
     func getRemoteData() {
         
-        self.collectDataFromRemote { (Bool, result) in
+        self.collectDataFromRemote { [weak self] (Bool, result) in
             switch result {
                  case .success(let returnData):
                    // print(returnData)
                     print(Thread.current.threadName)
                     DispatchQueue.main.async {
-                        self.reloadWithDataDelegate?.reloadTableView(gameFeedObject: returnData)
+                        self?.reloadWithDataDelegate?.reloadTableView(gameFeedObject: returnData)
                     }
                 case .failure( _):
-                    print("failure")
+                    print("failure getRemoteData")
             }
         }
     }

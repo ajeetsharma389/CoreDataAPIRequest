@@ -61,20 +61,30 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="87K-vs-eOp">
                                 <rect key="frame" x="198.5" y="430.5" width="37" height="37"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DF-OC-ud5">
+                                <rect key="frame" x="20" y="27" width="76" height="30"/>
+                                <state key="normal" title="Save to DB"/>
+                                <connections>
+                                    <action selector="saveToDB" destination="9pv-A4-QxB" eventType="touchUpInside" id="DrH-Z0-uxl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jSp-Gf-LvI" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="36" id="46m-JJ-N7a"/>
                             <constraint firstItem="S4J-bX-yEQ" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="CQh-OT-0iL"/>
+                            <constraint firstItem="jSp-Gf-LvI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0DF-OC-ud5" secondAttribute="trailing" constant="8" symbolic="YES" id="Dkj-hD-f9V"/>
                             <constraint firstItem="S4J-bX-yEQ" firstAttribute="top" secondItem="egG-tn-atu" secondAttribute="bottom" constant="9" id="GoL-cG-Jsv"/>
                             <constraint firstItem="87K-vs-eOp" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" constant="10" id="O2K-Zf-eCW"/>
                             <constraint firstItem="87K-vs-eOp" firstAttribute="centerY" secondItem="S4J-bX-yEQ" secondAttribute="centerY" constant="10" id="VKH-nM-eLl"/>
                             <constraint firstItem="S4J-bX-yEQ" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="Wnm-sl-hAn"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="top" secondItem="jSp-Gf-LvI" secondAttribute="top" constant="8" id="YDx-wI-Et5"/>
+                            <constraint firstItem="0DF-OC-ud5" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="YO2-kd-7Xi"/>
                             <constraint firstItem="S4J-bX-yEQ" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="bk1-Ad-Ab6"/>
                             <constraint firstItem="jSp-Gf-LvI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PQr-Ze-W5v" secondAttribute="leading" symbolic="YES" id="gSx-QG-tYG"/>
                             <constraint firstItem="egG-tn-atu" firstAttribute="leading" secondItem="jSp-Gf-LvI" secondAttribute="trailing" constant="13" id="nTu-3c-Xr7"/>
                             <constraint firstItem="egG-tn-atu" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="25" id="qKc-l4-BuK"/>
+                            <constraint firstItem="S4J-bX-yEQ" firstAttribute="top" secondItem="0DF-OC-ud5" secondAttribute="bottom" constant="8" symbolic="YES" id="skR-7Y-6fW"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="egG-tn-atu" secondAttribute="trailing" constant="39" id="uzX-vN-qST"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -84,6 +94,7 @@
                         <outlet property="OnOffLabel" destination="jSp-Gf-LvI" id="I2C-6U-Tz8"/>
                         <outlet property="loaderView" destination="87K-vs-eOp" id="YN5-9F-77g"/>
                         <outlet property="newsTableView" destination="S4J-bX-yEQ" id="PFB-dz-eHI"/>
+                        <outlet property="saveDbButton" destination="0DF-OC-ud5" id="xbW-en-epk"/>
                         <outlet property="toggleButton" destination="egG-tn-atu" id="ZLa-ac-NIC"/>
                     </connections>
                 </viewController>
@@ -91,40 +102,35 @@
             </objects>
             <point key="canvasLocation" x="749.27536231884062" y="-320.08928571428572"/>
         </scene>
-        <!--Second-->
-        <scene sceneID="wg7-f3-ORb">
+        <!--Third-->
+        <scene sceneID="IRh-KU-LZd">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="CoreDataAPIRequest" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
+                <tableViewController id="wbr-jN-xm1" customClass="SecondViewController" customModule="CoreDataAPIRequest" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fx4-KN-eZA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="106" y="426.5" width="202" height="43"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="99.5" y="477.5" width="215" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdCell" id="ZfA-D6-3c2">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZfA-D6-3c2" id="cKQ-go-j7a">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wbr-jN-xm1" id="Vya-x6-ZPO"/>
+                            <outlet property="delegate" destination="wbr-jN-xm1" id="g5o-Kv-Xtp"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Third" image="second" id="FRR-Wo-Nn1" userLabel="Third"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NLK-3h-iwX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="122" y="798"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -137,7 +143,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="wbr-jN-xm1" kind="relationship" relationship="viewControllers" id="SQC-pB-9Lj"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

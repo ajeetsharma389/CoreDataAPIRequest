@@ -7,15 +7,16 @@
 //
 
 import UIKit
-
+import CoreData
 class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
-    
-    // Delegate from ViewModel
+    // MARK: - Delegate from ViewModel
+
     func reloadTableView(gameFeedObject: GameFeed) {
         print(Thread.current.threadName)
             print(Thread.current.threadName)
             //extract Datum from gameFeedObject
             self.newsArray = gameFeedObject.data
+            saveDbButton.isEnabled = true
             self.newsTableView.reloadData()
     }
     
@@ -23,7 +24,8 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
     
 
     
-
+ // MARK: - Declaration of properties
+    @IBOutlet weak var saveDbButton: UIButton!
     @IBOutlet weak var loaderView: UIActivityIndicatorView!
     @IBOutlet weak var OnOffLabel: UILabel!
     @IBOutlet weak var newsTableView: UITableView!
@@ -39,11 +41,12 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
         newsTableView.dataSource = self
         newsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "firstCell")
         switchToOfflne(toggleButton)
+        
     }
     @IBAction func switchToOfflne(_ sender: UISwitch) {
         
         if !sender.isOn {
-            
+            saveDbButton.isEnabled = false
             loaderView.isHidden = false
             // OFFLINE MODE
             self.OnOffLabel.text = "OffLine"
@@ -55,6 +58,7 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
             
         }
         else {
+           
             self.OnOffLabel.text = "OnLine"
             self.loaderView.isHidden = false
             newsArray.removeAll()
@@ -79,6 +83,29 @@ extension FirstViewController:UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    // MARK: - Saving data to CoreData
+   @IBAction func saveToDB() {
+    //let context = UIApplication.shared.
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = appDelegate.persistentContainer.viewContext
+    
+    let gameEntity = NSEntityDescription.entity(forEntityName: "Games", in: context)!
+        for insertValue in 0..<newsArray.count {
+        
+            let games = NSManagedObject(entity: gameEntity, insertInto: context)
+            print("==\(newsArray[insertValue].id as NSNumber)")
+           
+            games.setValue(NSNumber(value: newsArray[insertValue].id) , forKey: "newsId")
+            games.setValue(newsArray[insertValue].homeTeam.fullName , forKey: "full_name")
+            games.setValue(newsArray[insertValue].date, forKey: "date")
+            games.setValue(newsArray[insertValue].homeTeam.id , forKey: "home_team_id")
+
+            // To avoid run time error from coredata due to constraint set on newsId in coredata model to avoid duplicate value
+            context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
+
+        }
+        appDelegate.saveContext()
+    }
     
 }
 

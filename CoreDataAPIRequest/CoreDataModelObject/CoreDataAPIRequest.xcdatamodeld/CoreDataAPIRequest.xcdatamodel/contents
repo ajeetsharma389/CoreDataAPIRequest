@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="News" representedClassName=".News" syncable="YES" codeGenerationType="class">
-        <attribute name="companyId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="companyName" optional="YES" attributeType="String"/>
-        <attribute name="logoPath" optional="YES" attributeType="String"/>
-        <attribute name="newsID" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
-        <attribute name="symbol" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="String"/>
+    <entity name="Games" representedClassName=".Games" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="full_name" optional="YES" attributeType="String"/>
+        <attribute name="home_team_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="newsId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
-                <constraint value="newsID"/>
+                <constraint value="newsId"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="News" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Games" positionX="-63" positionY="-18" width="128" height="28"/>
     </elements>
 </model>
