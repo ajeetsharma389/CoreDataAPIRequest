@@ -9,14 +9,14 @@
 import UIKit
 import CoreData
 class SecondViewController: UITableViewController {
-
+    
     var items = [Any]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
-   
+    
     override func viewDidAppear(_ animated: Bool){
         
         fetchData()
@@ -48,13 +48,12 @@ class SecondViewController: UITableViewController {
         return cell
     }
     func fetchData() {
-
+        
         print("Fetching Data..")
         // clear items
         self.items.removeAll()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate //Singlton instance
-        let context = appDelegate.persistentContainer.viewContext
+        let context = DBManager.sharedDbManager.persistentContainer.viewContext
         do {
             let result = try context.fetch(request)
             print("count =\(result.count)")
@@ -65,7 +64,7 @@ class SecondViewController: UITableViewController {
                     items.append(newsFullName)
                 }
             }
-
+            
         } catch {
             print("Fetching data Failed")
         }
@@ -73,6 +72,6 @@ class SecondViewController: UITableViewController {
         self.tableView.reloadData()
         print(items)
     }
-
+    
 }
 

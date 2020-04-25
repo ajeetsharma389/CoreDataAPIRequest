@@ -12,7 +12,6 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
     // MARK: - Delegate from ViewModel
 
     func reloadTableView(gameFeedObject: GameFeed) {
-        print(Thread.current.threadName)
             print(Thread.current.threadName)
             //extract Datum from gameFeedObject
             self.newsArray = gameFeedObject.data
@@ -31,6 +30,7 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
     @IBOutlet weak var newsTableView: UITableView!
     @IBOutlet weak var toggleButton: UISwitch!
     var newsArray = [Datum]()
+    var newsArrayFromDB = [Any]()
     var offlineDataviewmodel : OfflineDataViewModel?
     var remoteDataModel: RemoteDataViewModel?
   
@@ -51,10 +51,19 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
             // OFFLINE MODE
             self.OnOffLabel.text = "OffLine"
             // Initializer Dependency injection. Get data from ViewModel
-            offlineDataviewmodel = OfflineDataViewModel(offlinedataModel: OfflineDataModel())
-            newsArray = (offlineDataviewmodel?.exposeOfflineDataToView())!
-            newsTableView.reloadData()
+           // offlineDataviewmodel = OfflineDataViewModel(offlinedataModel: OfflineDataModel())
+           // newsArray = (offlineDataviewmodel?.exposeOfflineDataToView())!
+            //newsTableView.reloadData()
             loaderView.isHidden = true
+            
+            let dbManagaer = DBManager.sharedDbManager
+            guard dbManagaer.fetchDataCount() != 0 else {
+                return
+            }
+            self.newsArray.removeAll()
+            //self.newsArray.insert(dbManagaer.fetchData(), at: 0)
+            self.newsArrayFromDB = dbManagaer.fetchData()
+            self.newsTableView.reloadData()
             
         }
         else {
@@ -73,21 +82,27 @@ class FirstViewController: UIViewController,reloadWithDataTableViewDelegate {
 
 extension FirstViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if newsArrayFromDB.count > 0 {
+            return newsArrayFromDB.count
+        }
         return newsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "firstCell", for: indexPath)
-        
-        cell.textLabel?.text = newsArray[indexPath.row].homeTeam.fullName
+        if newsArrayFromDB.count > 0 {
+            cell.textLabel?.text = newsArrayFromDB[indexPath.row] as? String
+        }
+        else {
+            cell.textLabel?.text = newsArray[indexPath.row].homeTeam.fullName
+        }
         return cell
     }
     
     // MARK: - Saving data to CoreData
    @IBAction func saveToDB() {
-    //let context = UIApplication.shared.
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let context = appDelegate.persistentContainer.viewContext
+
+    let context = DBManager.sharedDbManager.persistentContainer.viewContext
     
     let gameEntity = NSEntityDescription.entity(forEntityName: "Games", in: context)!
         for insertValue in 0..<newsArray.count {
@@ -100,11 +115,12 @@ extension FirstViewController:UITableViewDelegate, UITableViewDataSource {
             games.setValue(newsArray[insertValue].date, forKey: "date")
             games.setValue(newsArray[insertValue].homeTeam.id , forKey: "home_team_id")
 
-            // To avoid run time error from coredata due to constraint set on newsId in coredata model to avoid duplicate value
+            // To avoid run time error from coredata due to constraint set on newsId in coredata model to refrain duplicate value
             context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
 
         }
-        appDelegate.saveContext()
+    DBManager.sharedDbManager.saveContext()
+        
     }
     
 }

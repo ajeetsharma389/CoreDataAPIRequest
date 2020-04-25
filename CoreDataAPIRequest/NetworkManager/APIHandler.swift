@@ -35,6 +35,7 @@ final class APIHandler{
     static let sharedInstance = APIHandler()
     
     private init() {}
+    
     func load(_ resource: Resource, result: @escaping ((Result<Data>) -> Void)) {
         let request = URLRequest(resource)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -51,6 +52,7 @@ final class APIHandler{
                     result(.success(data))
                 } else {
                     result(.failure(APIHandlerError.invalidDataFormat))
+                    
                 }
             }
         }
@@ -58,5 +60,3 @@ final class APIHandler{
     }
 
 }
-
-

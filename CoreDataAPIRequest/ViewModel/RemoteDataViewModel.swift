@@ -8,35 +8,39 @@
 
 import Foundation
 protocol onlineDataDelegate {
-   func getRemoteData()
+    func getRemoteData()
 }
 
-
+// Depedency inversion principle
 protocol reloadWithDataTableViewDelegate {
     func reloadTableView(gameFeedObject: GameFeed)
 }
 
-final class RemoteDataViewModel {
-    private var networkManager: NetworkManager!
+ final class RemoteDataViewModel {
+   // private var networkManager: NetworkManager!
     private var reloadWithDataDelegate: reloadWithDataTableViewDelegate?
     private let headers = [
-                            "x-rapidapi-host": hostKey,
-                            "x-rapidapi-key": apiKey
-                          ]
+        "x-rapidapi-host": hostKey,
+        "x-rapidapi-key": apiKey
+    ]
     // MARK: - Initialization
     init(viewDelegate: reloadWithDataTableViewDelegate) {
         reloadWithDataDelegate = viewDelegate
-        networkManager = NetworkManager.init(handler: APIHandler.sharedInstance)
+        //networkManager = NetworkManager.init(handler: APIHandler.sharedInstance)
+        //networkManager = NetworkManager.
     }
     
-   private func collectDataFromRemote(competionHandler: @escaping ((Bool, Result<GameFeed>) ->Void)){
-        self.networkManager.loadGames(urlString: baseUrl, header: self.headers) { (result) in
+    private func collectDataFromRemote(competionHandler: @escaping ((Bool, Result<GameFeed>) ->Void)){
+        
+        // Parameter based Dependecy Injection. Passing APIHandler as parameter
+        NetworkManager.loadGamesData(urlString: baseUrl,header:  self.headers  , apiHandler: APIHandler.sharedInstance){
+            (result) in
             switch result {
             case .success(let returnData):
                 print(Thread.current.threadName)
-                  competionHandler(true, .success(returnData))
+                competionHandler(true, .success(returnData))
             case .failure( _):
-                    break
+                break
             }
         }
         
@@ -49,17 +53,15 @@ extension RemoteDataViewModel:onlineDataDelegate {
         
         self.collectDataFromRemote { [weak self] (Bool, result) in
             switch result {
-                 case .success(let returnData):
-                   // print(returnData)
-                    print(Thread.current.threadName)
-                    DispatchQueue.main.async {
-                        self?.reloadWithDataDelegate?.reloadTableView(gameFeedObject: returnData)
-                    }
-                case .failure( _):
-                    print("failure getRemoteData")
+            case .success(let returnData):
+                // print(returnData)
+                print(Thread.current.threadName)
+                DispatchQueue.main.async {
+                    self?.reloadWithDataDelegate?.reloadTableView(gameFeedObject: returnData)
+                }
+            case .failure( _):
+                print("failure getRemoteData")
             }
         }
     }
-    
-    
 }

@@ -8,23 +8,21 @@
 import Foundation
 final class NetworkManager {
     
-    /// Initializer dependency injection
-    private let apihandler: APIHandler!
+    //    static let sharedInstance = NetworkManager()
     
-    init(handler: APIHandler) {
-        self.apihandler = handler
-    }
+    //  private init() {}
     
-    func loadGames(urlString: String,header:  Dictionary <String, String>, completion: @escaping ((Result<GameFeed>) ->Void)) {
+    // Parameter based Dependency injection passing APIHandler into method
+    static func loadGamesData(urlString: String,header:  Dictionary <String, String>, apiHandler: APIHandler = .sharedInstance, completion: @escaping ((Result<GameFeed>) ->Void)) {
         
         let resource = Resource(url: URL(string: urlString)!, httpHeader: header)
-        self.apihandler.load(resource) { [weak self] (result) in
-            guard self != nil else {return}
+        apiHandler.load(resource) {  (result) in
+            //guard self != nil else {return}
             switch result {
             case .success(let data):
                 do {
                     let items = try JSONDecoder().decode(GameFeed.self, from: data)
-                        completion(.success(items))
+                    completion(.success(items))
                 }catch{
                     completion(.failure(error))
                 }
@@ -34,6 +32,5 @@ final class NetworkManager {
                 break
             }
         }
-        
     }
 }
